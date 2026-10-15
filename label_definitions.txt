@@ -5,6 +5,5 @@
 #
 # Delete the examples below and put yours in.
 
-analysis: makes an argument backed by a specific, checkable fact
-hot_take: a confident claim with no support offered
-reaction: an immediate response to something that just happened
+analysis: an evaluative claim about a show backed by a specific, checkable detail that is explicitly connected to the verdict by reasoning language (because, that's why, and it shows, etc.)
+take: a confident evaluative claim about a show with no specific support offered, or a specific detail mentioned without being used to argue the verdict
