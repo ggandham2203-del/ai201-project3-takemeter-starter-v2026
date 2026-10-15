@@ -51,63 +51,62 @@ whether you hit them:
 
 ---
 
-## 1.
+## 1. Overall accuracy
 
-<!-- Your criterion. It must name a number. -->
+Overall accuracy on the held-out set is at least 0.65.
 
-
-
-**Why this target:**
-
-
-
----
-
-## 2.
-
-<!-- Your criterion. -->
-
-
-
-**Why this target:**
-
-
+**Why this target:** With 2 labels (`analysis`, `take`), random guessing gets
+about 50%. 0.65 clears that by a real margin without assuming near-perfect
+separability from only ~200 examples and a boundary that's genuinely fuzzy in
+places (see the Dewey-scene boundary case in the taxonomy).
 
 ---
 
-## 3.
+## 2. Per-label performance
 
-<!-- Your criterion. -->
+`take` has an F1 of at least 0.65 on the held-out set. `analysis` has an F1 of
+at least 0.55.
 
-
-
-**Why this target:**
-
-
-
----
-
-## 4.
-
-<!-- Your criterion. -->
-
-
-
-**Why this target:**
-
-
+**Why this target:** `analysis` requires both a specific, checkable detail
+*and* an explicit causal link ("because," "that's why," "and it shows") —
+a stricter bar to hit in real text than `take`, so it's expected to be the
+thinner label with a noisier test split. `take` gets the higher bar since it
+should be more common and better covered.
 
 ---
 
-## 5.
+## 3. Balance
 
-<!-- Your criterion. -->
+No label makes up more than 60% of `labels.csv`.
 
+**Why this target:** Tighter than the brief's 70% hard floor. From the posts
+read so far in r/television, unsupported assertions (`take`) seem to outnumber
+argued claims (`analysis`) in casual threads. A self-imposed 60% cap forces
+real collection effort on `analysis` rather than coasting on the easier-to-find
+label.
 
+---
 
-**Why this target:**
+## 4. Consistency
 
+If a second person labeled the same 30 posts using the decision rule in the
+taxonomy, agreement would be at least 80%.
 
+**Why this target:** The Dewey-style boundary case is genuinely fuzzy, so
+perfect agreement isn't realistic. But the causal-language rule (presence or
+absence of "because"/"that's why"/etc.) is concrete enough that two people
+applying it should land close together most of the time.
+
+---
+
+## 5. Confidence
+
+Predictions the model makes with greater than 0.8 probability are correct at
+least 85% of the time.
+
+**Why this target:** A model that's "sure" should be right more often than its
+overall average (0.65 from criterion 1). This checks whether its confidence is
+meaningful, not just whether it's right on average.
 
 ---
 
