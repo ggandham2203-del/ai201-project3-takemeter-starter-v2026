@@ -39,10 +39,13 @@
 
 ## What This Does
 
-<!-- Your community, and what your classifier sorts posts into. Three or four
-     sentences. -->
-
-
+TakeMeter sorts opinion comments from r/television, a general TV discussion
+subreddit, into two categories: `analysis` (a claim backed by a specific,
+checkable detail that's explicitly tied to the verdict) and `take` (a
+confident claim with no such backing). The goal is to separate posts that
+argue something from posts that just assert something, since both show up
+constantly in the same threads and regulars can usually tell the difference
+within a sentence without being able to say exactly how.
 
 ---
 
@@ -54,35 +57,56 @@
      The decision rule is worth a point on its own and it's the thing most
      people leave out. Every taxonomy has a hardest boundary. Name yours. -->
 
-### `label_one`
+### `analysis`
 
-**Definition:**
-
-**Example 1:**
->
-
-**Example 2:**
->
-
-### `label_two`
-
-**Definition:**
+**Definition:** An evaluative claim about a show backed by a specific,
+checkable detail (a scene, episode, stat, or named fact) that is explicitly
+connected to the verdict by reasoning language.
 
 **Example 1:**
->
+> "It seems to me that they don't want Muppets to do well, they want them to
+> do astronomically well. Like, the 2011 movie did well at the box office, but
+> the sequel and the attempts at tv shows don't find a massive audience like
+> other IPs."
 
 **Example 2:**
->
+> "I had to stop when the Walking Dead they got to that junkyard town with the
+> lady with the bad haircut. I think they were called the Scavengers. By that
+> point, all my favorite characters were gone and I didn't see the point to
+> keep on going."
+
+### `take`
+
+**Definition:** A confident evaluative claim about a show with no specific
+support offered, or a specific detail mentioned without being used to argue
+the verdict.
+
+**Example 1:**
+> "Malcolm in the Middle has aged really well, though i think my name is earl
+> has a plenty of charm too."
+
+**Example 2:**
+> "Just going to suggest Peter Jackson makes Muppets LOTR. He has experience
+> directing with Muppets and it would be absolutely legendary!"
 
 ### The hardest boundary
 
-**Which two labels:**
+**Which two labels:** `analysis` vs. `take`
 
-**The decision rule I used every time:**
-<!-- e.g. "If the post names a specific checkable fact, it's `analysis`, even
-     if the tone is heated." -->
+**The decision rule I used every time:** A specific, checkable detail only
+makes a post `analysis` if it's explicitly connected to the verdict by
+reasoning language — "because," "that's why," "and it shows," "by that point,"
+etc. If the detail and the opinion sit side by side with no stated causal
+link, it's `take`.
 
-
+The case that found this rule: "I love when Dewey tells the bullies he called
+their moms and while they scoff, their mothers show up and they get dragged
+off by their mothers." This names an exact, checkable scene — the reason
+`analysis` exists as a label — but naming a scene isn't the same as arguing
+something with it. "I love when X happens" is a feeling with a detail
+attached, not a claim built from that detail. Applying the rule: this is
+`take`, since there's no causal link between the scene and any broader verdict
+about quality.
 
 ---
 
@@ -91,45 +115,69 @@
 <!-- Where you collected from, how you labelled, your counts, and three hard
      cases. -->
 
-**Where the posts came from:**
+**Where the posts came from:** r/television, a general TV discussion
+subreddit (not built around a single show). Posts were collected from a wide
+variety of threads: episode-discussion and "aged well/poorly" threads,
+"deserves more love"/hidden-gem threads, character-development discussion,
+franchise-news and casting threads, and "does it get better" threads. Posts
+had to meet an inclusion rule decided during collection: a post is in scope
+if it states a preference, recommendation, or evaluative judgment about a
+show/episode; posts that only report an action ("just started watching X")
+with no judgment attached were excluded, as were posts reacting to
+real-world news about a person rather than the show's quality, and posts that
+were really about fandom/reception (reddit vs. general audiences) rather than
+the show's content itself.
 
-**How I labelled them:** <!-- Cold first? Pre-labelled with AI and corrected?
-Say so plainly — the disclosure is required, not penalised. -->
+**How I labelled them:** The first 20 were labelled cold — no help, no
+tools, just the taxonomy above — marked `cold` in the notes column. The
+remaining ~143 were collected in batches and pre-labelled with AI assistance
+using the taxonomy and decision rule, then every single one was read and
+corrected by hand before being added; those rows are marked
+`pre-labeled, checked` in the notes column.
 
 **Counts per label:**
 
 | Label | Count | Share |
 |---|---|---|
-|  |  |  |
-|  |  |  |
-|  |  |  |
-| **Total** |  | 100% |
+| `analysis` | 84 | 51.5% |
+| `take` | 79 | 48.5% |
+| **Total** | 163 | 100% |
 
 **Three hard cases**
 
-<!-- Any post that made you pause: what it was, which two labels it could have
-     been, and what you chose. These are worth more than the easy 190. -->
-
 **1.**
-> *The post:*
+> *The post:* "I listened to the dramatized audiobooks at work so I was
+> pretty entertained if only for the dragons."
 >
-> *Could have been:*
+> *Could have been:* `analysis` or `take`
 >
-> *I chose, because:*
+> *I chose, because:* `take` — "if only for the dragons" is a soft
+> attribution, not an explicit causal link like "because" or "that's why." It
+> names a detail next to the verdict without building an argument from it,
+> the same shape as the Dewey boundary case above, just with weaker phrasing.
 
 **2.**
-> *The post:*
+> *The post:* "No, it actually gets worse. That's why it's such a popular,
+> beloved and rewatched show."
 >
-> *Could have been:*
+> *Could have been:* `analysis` or `take`
 >
-> *I chose, because:*
+> *I chose, because:* `take` — this is sarcasm (the literal words say
+> "worse," the intended meaning is the opposite). Even reading past the irony
+> to the real claim, there's no specific, checkable detail behind it, just a
+> general appeal to popularity.
 
 **3.**
-> *The post:*
+> *The post:* "Bojack Horseman did a great job developing characters."
 >
-> *Could have been:*
+> *Could have been:* `analysis` or `take`
 >
-> *I chose, because:*
+> *I chose, because:* `take` — it sits right next to comments in the same
+> thread that were labelled `analysis` for describing an actual character
+> trajectory (e.g. "Rick becomes a little more understanding and selfless").
+> Naming a show and asserting a verdict isn't enough; `analysis` requires
+> describing what actually changed, not just a conclusory label like "did a
+> great job."
 
 ---
 
@@ -137,17 +185,27 @@ Say so plainly — the disclosure is required, not penalised. -->
 
 <!-- Your starting model, your settings, and anything you changed and why. -->
 
-**Base model:**
+**Base model:** `distilbert-base-uncased`
 
-**Settings:** <!-- epochs, learning rate, batch size, seed -->
+**Settings:** 3 epochs, learning rate 2e-5, batch size 16, max length 128
+tokens, seed 42 — all the notebook's defaults.
 
-**Anything I changed from the defaults, and why:**
+**Anything I changed from the defaults, and why:** Nothing. Used the
+defaults as-is for this first run.
 
-**Split sizes:** <!-- train / val / test, and per-label counts in the test
-split. If a label had fewer than about 8 in test, say so — it explains a lot
-of next unit's variance. -->
+**Split sizes:** 70/15/15 stratified split of 163 rows — test split has 25
+rows (13 `analysis` / 12 `take`), both comfortably above the ~8-example
+threshold where F1 gets jumpy. Train/val are approximately 114/24.
 
+**Device:** Apple Silicon GPU (MPS), torch 2.14.1 — recorded in `results.json`.
+Per the notebook's own note, this is part of the result, not just a detail
+about the laptop: the same data and seed on different hardware can produce
+different numbers because of how the arithmetic is ordered.
 
+**Headline result (not yet evaluated against criteria — that's next unit):**
+overall accuracy 0.60, F1 `analysis` 0.72 / `take` 0.29. The confusion matrix
+shows the model caught all 13 true `analysis` posts but only 2 of 12 true
+`take` posts — a real asymmetry worth digging into next unit.
 
 ---
 
@@ -162,17 +220,35 @@ of next unit's variance. -->
 
 **Moment 1**
 
-- *What I asked for:*
-- *What came back:*
-- *What I changed:*
+- *What I asked for:* Stress-tested the `analysis`/`take` taxonomy by asking
+  for 8 posts written to sit right on the boundary between the two labels.
+- *What came back:* 8 TV-opinion-style sentences. Classifying them against
+  the taxonomy, 7 resolved cleanly but one ("I end up more impressed,
+  especially with the lighting in episode 4") stayed genuinely ambiguous — it
+  named a detail next to a verdict with no stated link between them.
+- *What I changed:* Tightened the decision rule to require explicit
+  reasoning language ("because," "that's why," "and it shows") connecting the
+  detail to the verdict, not just the detail sitting near an opinion. That
+  tightened rule is the one in the taxonomy above.
 
 **Moment 2**
 
-- *What I asked for:*
-- *What came back:*
-- *What I changed:*
+- *What I asked for:* For most of the ~143 non-cold rows, pasted batches of
+  raw post text and asked for a pre-label (`analysis`/`take`, or excluded if
+  out of scope) with a one-line reason per post, against the taxonomy and
+  inclusion rule.
+- *What came back:* A labeled table per batch, including some out-of-scope
+  flags for posts that read as pure trivia, off-topic fandom discussion, or
+  status updates rather than opinions.
+- *What I changed:* Read and corrected every single row before it was added
+  to `labels.csv` — several pre-labels were adjusted or excluded outright
+  (e.g. posts that were really about franchise lore rather than the specific
+  show, or about real-world events rather than the show's quality).
 
-**Pre-labelling disclosure:**
+**Pre-labelling disclosure:** 142 of 163 rows (marked `pre-labeled, checked`
+in the notes column) were pre-labelled with AI assistance in batches and then
+individually read and corrected by hand. The first 21 rows (marked `cold`)
+were labelled without any AI assistance.
 
 <!-- ═══════════════════════ UNIT 6 — THE TEST ═══════════════════════
 
