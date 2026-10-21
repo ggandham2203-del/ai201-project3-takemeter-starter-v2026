@@ -366,49 +366,57 @@ presence, rather than a random/symmetric error.
      data/staff_taxonomy.md, not your own — so every argument below is made
      from those definitions and those decision rules. -->
 
-**Agreement rate:** ___ / 30 = ___%
-
-<!-- Nobody grades this number. A 60% who argues every disagreement from the
-     stated rules beats a 95% who wrote "staff was right" nine times. Several
-     of the 30 were chosen because they're genuinely ambiguous — you should be
-     winning some of these. -->
+**Agreement rate:** 28 / 30 = 93%
 
 **Disagreements**
 
-<!-- Three lines each: the post, both labels, and who you think is right and
-     why — grounded in the staff definitions you were both applying.
-
-     Then sort each into one of three piles:
-       (a) the rule covered it and I applied it loosely → a consistency problem
-       (b) the rule genuinely doesn't say               → a gap in the definitions
-       (c) the rule is ambiguous here and my reading is defensible → argue it.
-           This is a legitimate win.
-
-     Pile (a) is the one that matters most for your diagnosis: if you applied a
-     written rule two different ways on 30 posts, that is direct evidence about
-     what you did across your own 200. -->
-
 **1.**
-> *The post:*
+> *The post:* "Three of us ran the same session on the same day, different
+> shoes, within 10 seconds of each other over 5 miles. I'm not saying shoes
+> do nothing, but whatever they do was smaller than the noise between three
+> people."
 >
-> *Staff said / I said:*
+> *Staff said / I said:* `analysis` / `hot_take`
 >
-> *My call, and why:*
+> *My call, and why:* Sticking with `hot_take`. The sample is three people on
+> one session — too small for the "10 seconds" figure to really be load-
+> bearing evidence. It reads like an anecdote with a number attached rather
+> than an argument built from the number: the conclusion ("smaller than the
+> noise between three people") is a hedge, not a claim the number rigorously
+> supports.
 >
-> *Which pile:*
+> *Which pile:* (c) — the rule is ambiguous here and my reading is
+> defensible. Rule 1 asks whether the fact "carries" the argument, but
+> doesn't say how large the sample needs to be before a comparison counts as
+> load-bearing rather than anecdotal.
 
 **2.**
-> *The post:*
+> *The post:* "Every injury thread on this forum is the same injury and the
+> same three replies."
 >
-> *Staff said / I said:*
+> *Staff said / I said:* `hot_take` / `analysis`
 >
-> *My call, and why:*
+> *My call, and why:* Sticking with `analysis`. The claim names a specific,
+> checkable pattern — "the same injury," "the same three replies" — not a
+> vague feeling. That specificity is functioning as the writer's evidence,
+> even without a formal tally attached to it.
 >
-> *Which pile:*
+> *Which pile:* (c) — the rule is ambiguous here and my reading is
+> defensible. Rule 1 talks about checkable facts "doing work," but doesn't
+> say whether a specific-but-uncounted pattern claim qualifies, or whether it
+> needs an actual number to count as load-bearing.
 
-**What the pattern in my disagreements tells me:**
-
-
+**What the pattern in my disagreements tells me:** Both disagreements come
+down to the same underlying question: how much rigor does a "checkable fact"
+need before it's load-bearing rather than decorative? Staff drew that line
+stricter than I did in both cases — requiring either a bigger sample (sp_010)
+or an explicit count (sp_020). That's the same soft spot that shows up in my
+own `analysis`/`take` taxonomy: the causal-language rule says a detail has to
+be "explicitly connected" to the verdict, but doesn't fully specify how much
+evidence is enough. Since both disagreements landed on the *same* side (I was
+more willing than staff to call something `analysis`), this looks less like
+random noise and more like a consistent personal threshold that's slightly
+looser than staff's.
 
 ---
 

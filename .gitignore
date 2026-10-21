@@ -28,3 +28,8 @@ Thumbs.db
 # NOTE: results.json, results_three_seeds.json and baseline_results.json are
 # deliberately NOT ignored. They're evidence the run actually happened, and
 # they're part of what gets graded. Commit them.
+
+# The staff answer key — not part of the submission, and shouldn't be
+# redistributed (other students use the same staff set). my_staff_labels.csv
+# and agreement_results.json are the graded evidence; this is just the key.
+data/staff_labels.csv
