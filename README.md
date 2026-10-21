@@ -264,20 +264,31 @@ were labelled without any AI assistance.
 
 | Measure | Baseline | Trained | Difference |
 |---|---|---|---|
-| Overall accuracy |  |  |  |
-| Macro F1 |  |  |  |
-| F1 — `label_one` |  |  |  |
-| F1 — `label_two` |  |  |  |
+| Overall accuracy | 0.52 | 0.60 | +0.08 |
+| Macro F1 | 0.342 | 0.504 | +0.162 |
+| F1 — `analysis` | 0.684 | 0.722 | +0.038 |
+| F1 — `take` | 0.000 | 0.286 | +0.286 |
 
-**What I predicted before I looked:**
-<!-- Milestone 1 asks you to write this BEFORE seeing the trained numbers. A
-     prediction made afterwards isn't one. -->
+**What I predicted before I looked:** "I predict the trained model will
+narrowly beat the baseline on overall accuracy, but the real gap will be on
+`take`: the baseline's zero-shot guess collapses almost entirely into
+`analysis` (0% precision/recall on `take`), and while the trained model is
+also `analysis`-biased, it at least catches a couple of `take` examples — so
+fine-tuning helped it partially learn the boundary even if neither model has
+really learned it." (Note: by this point in the process the standalone
+trained-model numbers were already known from Unit 5, so this was a
+prediction about where the *comparison* would land rather than a fully blind
+guess at the raw numbers.)
 
-**What the gap actually means:**
-<!-- If the baseline matched your trained model, your fine-tuning added
-     nothing — and that is a real finding, not a failure. Say it plainly. -->
-
-
+**What the gap actually means:** The prediction held. Fine-tuning barely
+moved overall accuracy (+0.08) but it's the only thing that gave the model
+any ability to recognize `take` at all — the baseline, working from the bare
+label definitions with no examples, never once predicted `take` correctly.
+Both models still default heavily toward guessing `analysis`, though, which
+suggests the real limitation isn't the lack of training so much as the task
+itself: recognizing the *absence* of causal reasoning is a harder pattern to
+learn than recognizing its presence, and 163 examples may not be enough
+signal for that negative case either way.
 
 ---
 
