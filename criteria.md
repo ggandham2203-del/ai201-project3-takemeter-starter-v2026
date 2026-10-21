@@ -108,6 +108,15 @@ least 85% of the time.
 overall average (0.65 from criterion 1). This checks whether its confidence is
 meaningful, not just whether it's right on average.
 
+> **Revised in unit 6:** Accuracy on the most-confident third of predictions
+> (by the model's own predicted probability) is at least 0.85.
+>
+> **Why revised:** The original named a probability threshold (">0.8") that
+> `results.json` doesn't record — it only reports accuracy by confidence
+> *rank* (most/middle/least confident third), not by probability value. The
+> criterion as written couldn't be measured from what the notebook actually
+> outputs.
+
 ---
 
 <!-- ─────────────────────────────────────────────────────────────────────────

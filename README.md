@@ -299,16 +299,14 @@ signal for that negative case either way.
 
 | Criterion | Target | Seed 42 | Seed 7 | Seed 2024 | Verdict |
 |---|---|---|---|---|---|
-| 1. Overall accuracy | ≥ 0.65 | 0.60 | 0.56 | 0.76 | *(Milestone 4)* |
-| 2. Per-label F1 (`take` / `analysis`) | `take` ≥ 0.65, `analysis` ≥ 0.55 | 0.286 / 0.722 | 0.154 / 0.703 | 0.667 / 0.813 | *(Milestone 4)* |
-| 3. Balance | no label > 60% of `labels.csv` | 51.5% / 48.5% (dataset-level, same every seed) | — | — | *(Milestone 4)* |
-| 4. Consistency | ≥ 80% agreement | *(pending Milestone 3)* | | | *(Milestone 4)* |
-| 5. Confidence | >0.8-confidence preds correct ≥ 85% | most-confident-third acc: 0.75 | 0.75 | 0.75 | *(Milestone 4)* |
+| 1. Overall accuracy | ≥ 0.65 | 0.60 | 0.56 | 0.76 | MISSED |
+| 2. Per-label F1 (`take` / `analysis`) | `take` ≥ 0.65, `analysis` ≥ 0.55 | 0.286 / 0.722 | 0.154 / 0.703 | 0.667 / 0.813 | MISSED |
+| 3. Balance | no label > 60% of `labels.csv` | 51.5% / 48.5% (dataset-level, same every seed) | — | — | MET |
+| 4. Consistency | ≥ 80% agreement | 93% (one-time measure, not seed-dependent) | — | — | MET |
+| 5. Confidence *(revised)* | most-confident-third accuracy ≥ 0.85 | 0.75 | 0.75 | 0.75 | MISSED |
 
-Verdicts and the full diagnosis for each are filled in under "Verdicts and
-Diagnoses" below, after the agreement check (Milestone 3) — the target has to
-hold across all three seeds, not just show up once, so judging each row needs
-all three numbers side by side, which is why that's done as its own step.
+See "Verdicts and Diagnoses" below for how each of these was decided and the
+cause behind every miss.
 
 ### Confusion matrix
 
@@ -337,24 +335,48 @@ presence, rather than a random/symmetric error.
 
 | # | Criterion | Target | Verdict | How I decided |
 |---|---|---|---|---|
-| 1 |  |  |  |  |
-| 2 |  |  |  |  |
-| 3 |  |  |  |  |
-| 4 |  |  |  |  |
-| 5 |  |  |  |  |
+| 1 | Overall accuracy | ≥ 0.65 | MISSED | 2 of 3 seeds (0.60, 0.56) fall below target; only seed 2024 (0.76) clears it. Target must hold across all three. |
+| 2 | Per-label F1 | `take` ≥ 0.65, `analysis` ≥ 0.55 | MISSED | `analysis` clears 0.55 in all three seeds (0.722/0.703/0.813). `take` only clears 0.65 in one of three (0.667), missing badly in the other two (0.286, 0.154). |
+| 3 | Balance | no label > 60% | MET | `labels.csv` is 51.5% `analysis` / 48.5% `take` — well under the cap, and this is dataset-level so it doesn't vary by seed. |
+| 4 | Consistency | ≥ 80% agreement | MET | 28/30 = 93% agreement with staff on the staff set. |
+| 5 | Confidence *(revised)* | most-confident-third accuracy ≥ 0.85 | MISSED | Exactly 0.75 in all three seeds — consistent, not a fluke of one split. |
 
 **Diagnoses**
 
-<!-- For each miss: the cause, and how you know. The four common causes are:
-     too few examples for a label, a boundary you applied inconsistently, a
-     genuinely hard label pair, and a task the model can't reach from this
-     much data.
+**Criteria 1 and 2 (overall accuracy, `take` F1) — one underlying cause, two
+pieces of evidence pointing at different parts of it.**
 
-     ⚠️ Use your agreement report as evidence. It is the only instrument you
-     have that can tell a LABELLING problem from a MODEL problem, and this
-     section is graded on whether you used it that way. -->
+Evidence for a data/task limitation: the baseline model — zero-shot, never
+trained on any of my labels — made the *exact same kind* of error as my
+trained model: 100% recall on `analysis`, 0% correct `take` predictions. A
+model that never saw my training data can't be reproducing my labeling
+habits, so some of this is just that "this post doesn't argue anything" is a
+harder pattern to learn than "this post does argue something" — an absence
+is harder to pin down than a presence, especially from 163 examples.
 
+Evidence for a labeling-consistency problem: my agreement check against the
+staff set found both of my disagreements on the exact same boundary
+(`analysis` vs. `hot_take`-equivalent), and they went in *opposite*
+directions — I was less willing to call `analysis` on sp_010 and more
+willing on sp_020. That's not a one-way bias; it's an inconsistent threshold
+for "how much evidence counts as load-bearing," applied even when reading
+someone else's carefully written rules. If I'm inconsistent there, the same
+threshold almost certainly wobbled somewhere across my own 200-label
+`analysis`/`take` boundary, giving the model a blurrier line to learn from
+than it needed.
 
+Also relevant: `take` has only 79 examples total and just 12 in any given
+test split, so its F1 is inherently noisy by seed (0.154 to 0.667) on top of
+whatever the model actually learned — a second, compounding reason `take`
+specifically is the unstable number.
+
+**Criterion 5 (confidence) — the model is never very sure, in either
+direction.** `mean_when_right` (0.57) and `mean_when_wrong` (0.55) are nearly
+identical and both close to 0.5 — the floor for a 2-class problem. The model
+isn't confidently right or confidently wrong; it's mostly uncertain
+everywhere, which tracks with the same root cause as 1 and 2: a boundary
+(`take`) it hasn't learned cleanly produces predictions clustered near
+chance rather than sharp, trustworthy confidence in either direction.
 
 ---
 
