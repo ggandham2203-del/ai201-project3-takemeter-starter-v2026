@@ -299,29 +299,34 @@ signal for that negative case either way.
 
 | Criterion | Target | Seed 42 | Seed 7 | Seed 2024 | Verdict |
 |---|---|---|---|---|---|
-| 1.  |  |  |  |  |  |
-| 2.  |  |  |  |  |  |
-| 3.  |  |  |  |  |  |
-| 4.  |  |  |  |  |  |
-| 5.  |  |  |  |  |  |
+| 1. Overall accuracy | ≥ 0.65 | 0.60 | 0.56 | 0.76 | *(Milestone 4)* |
+| 2. Per-label F1 (`take` / `analysis`) | `take` ≥ 0.65, `analysis` ≥ 0.55 | 0.286 / 0.722 | 0.154 / 0.703 | 0.667 / 0.813 | *(Milestone 4)* |
+| 3. Balance | no label > 60% of `labels.csv` | 51.5% / 48.5% (dataset-level, same every seed) | — | — | *(Milestone 4)* |
+| 4. Consistency | ≥ 80% agreement | *(pending Milestone 3)* | | | *(Milestone 4)* |
+| 5. Confidence | >0.8-confidence preds correct ≥ 85% | most-confident-third acc: 0.75 | 0.75 | 0.75 | *(Milestone 4)* |
+
+Verdicts and the full diagnosis for each are filled in under "Verdicts and
+Diagnoses" below, after the agreement check (Milestone 3) — the target has to
+hold across all three seeds, not just show up once, so judging each row needs
+all three numbers side by side, which is why that's done as its own step.
 
 ### Confusion matrix
 
-<!-- ⚠️ TYPED AS A MARKDOWN TABLE. The notebook prints one ready to paste.
-     An image of a matrix earns nothing. -->
+(Seed 42 — the matrix Section 7 reports.)
 
-| true \ predicted |  |  |  |
-|---|---|---|---|
-| **** |  |  |  |
-| **** |  |  |  |
-| **** |  |  |  |
+| true \ predicted | analysis | take |
+|---|---|---|
+| **analysis** | 13 | 0 |
+| **take** | 10 | 2 |
 
-**My biggest off-diagonal number, and what it means:**
-<!-- Not "the model made mistakes" — WHICH boundary it didn't learn, and which
-     direction. "7 real analysis posts were called hot_take and only 3 went the
-     other way" is a direction, not just an error rate. -->
-
-
+**My biggest off-diagonal number, and what it means:** 10 real `take` posts
+were called `analysis`, and 0 real `analysis` posts were called `take` — a
+completely one-sided confusion. The model never misses an `analysis` post in
+any of the three seeds, but it's unreliable at recognizing `take`, and this
+direction matches the baseline's bias too (it never predicted `take`
+correctly either). That points at the boundary itself — recognizing the
+*absence* of argued reasoning — being harder to learn than recognizing its
+presence, rather than a random/symmetric error.
 
 ---
 
