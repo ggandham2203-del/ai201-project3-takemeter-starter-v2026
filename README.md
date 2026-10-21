@@ -406,17 +406,19 @@ presence, rather than a random/symmetric error.
 > say whether a specific-but-uncounted pattern claim qualifies, or whether it
 > needs an actual number to count as load-bearing.
 
-**What the pattern in my disagreements tells me:** Both disagreements come
-down to the same underlying question: how much rigor does a "checkable fact"
-need before it's load-bearing rather than decorative? Staff drew that line
-stricter than I did in both cases — requiring either a bigger sample (sp_010)
-or an explicit count (sp_020). That's the same soft spot that shows up in my
-own `analysis`/`take` taxonomy: the causal-language rule says a detail has to
-be "explicitly connected" to the verdict, but doesn't fully specify how much
-evidence is enough. Since both disagreements landed on the *same* side (I was
-more willing than staff to call something `analysis`), this looks less like
-random noise and more like a consistent personal threshold that's slightly
-looser than staff's.
+**What the pattern in my disagreements tells me:** Both disagreements sit on
+the same boundary — `analysis` vs. `hot_take`, not `reaction` — and both
+hinge on the same gap in Rule 1: how much rigor a checkable fact needs before
+it counts as load-bearing rather than decorative. The two disagreements don't
+point the same direction, though: on sp_010 I was *less* willing than staff
+to call something `analysis` (small sample felt too thin to me), and on
+sp_020 I was *more* willing (a specific-but-uncounted pattern felt like
+enough to me). That's not a one-way bias — it looks more like a threshold I
+apply inconsistently in both directions depending on the post. That's useful
+evidence for Milestone 4: if I'm inconsistent on exactly this kind of
+judgment call even when reading someone else's carefully written rules, the
+same inconsistency plausibly shows up somewhere in my own 200-label
+`analysis`/`take` boundary too.
 
 ---
 
