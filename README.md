@@ -250,6 +250,32 @@ in the notes column) were pre-labelled with AI assistance in batches and then
 individually read and corrected by hand. The first 21 rows (marked `cold`)
 were labelled without any AI assistance.
 
+**Moment 3 (Unit 6)**
+
+- *What I asked for:* For each of the two disagreements against the staff
+  set, asked for the strongest possible case for each label using only the
+  staff's written definitions, without being told which one staff actually
+  picked.
+- *What came back:* A two-sided argument for each post (sp_010, sp_020) —
+  neither side was told to me as "correct."
+- *What I changed:* Nothing was changed for me — I made the actual call and
+  wrote the adjudication myself, using the two-sided arguments as a sanity
+  check rather than an answer.
+
+**Moment 4 (Unit 6)**
+
+- *What I asked for:* After the first training run missed several criteria,
+  asked for the 11 `analysis`-labeled rows out of 163 that showed the same
+  "named-but-not-argued" pattern my agreement-check disagreements had
+  surfaced (a detail mentioned decoratively, or a vague attribute with no
+  concrete instance).
+- *What came back:* A list of 11 candidate rows with a one-line reason each,
+  for me to review before anything changed.
+- *What I changed:* Confirmed all 11 flips to `take` after reading the
+  reasoning myself — this is the one improvement made for this unit, and it's
+  what moved `take` F1 from an average of 0.369 to 0.742 across the three
+  seeds.
+
 <!-- ═══════════════════════ UNIT 6 — THE TEST ═══════════════════════
 
      Don't fill these in during unit 5.
@@ -488,13 +514,26 @@ exchange for a much more balanced, genuinely learned boundary.
 
 ## What's Still Broken
 
-<!-- For each criterion still missed: what you'd do, and why you stopped. -->
-
-
+**Criterion 1 (overall accuracy ≥ 0.65)** and **Criterion 2 (`take` F1 ≥
+0.65)** are both still MISSED, though narrowly — only seed 2024 falls short
+now (accuracy 0.60, `take` F1 0.615, just 0.035 under target), while seeds 42
+and 7 clear both. What I'd do next: add fresh `take` examples specifically
+(rather than relabeling existing ones again), since the remaining gap looks
+like it's mostly about test-set size (25 examples, 11-14 per label) making
+any single seed's numbers jumpy, not a deeper labeling problem — the
+one-improvement rule for this unit means I'm stopping here rather than
+stacking a second change on top of the relabel.
 
 **The gap between what I meant my labels to capture and what the model
-learned:**
-<!-- Two sentences. Your confusion matrix is the evidence. -->
+learned:** I meant `analysis` and `take` to mark whether a post's reasoning
+was genuinely load-bearing or just decorative. Before the fix, the confusion
+matrix showed the model hadn't learned that distinction at all — it defaulted
+to `analysis` almost every time, the same failure mode the untrained baseline
+showed. After relabeling the clearest decorative-evidence cases, the model
+learned a real boundary (`take` F1 nearly doubled), but it's still a seed-
+sensitive approximation of the rule rather than a settled one — which fits
+the pattern my own agreement-check disagreements for sp_010/sp_020 point to:
+the "how much evidence is enough" line is borderline-ambiguous.
 
 
 
