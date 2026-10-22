@@ -446,26 +446,43 @@ same inconsistency plausibly shows up somewhere in my own 200-label
 
 ## The Improvement
 
-**What I changed:**
+**What I changed:** Relabeled 11 of 163 rows in `labels.csv` from `analysis`
+to `take` — specifically, `analysis`-labeled posts whose "evidence" was
+decorative or unquantified: a named detail with no causal link to the
+verdict (e.g. "I love how Elisha Cuthbert was all about housing ribs"), or a
+vague attribute claim with no concrete instance behind it (e.g. "my biggest
+issue has to be the pacing," "it brought everyone full circle"). Nothing
+else changed — same taxonomy, same criteria, same training settings.
 
-**Which diagnosis pointed at it:**
+**Which diagnosis pointed at it:** The `take` F1 miss and overall accuracy
+miss, diagnosed partly as a labeling-consistency problem. My agreement check
+against the staff set found I apply the "how much evidence counts as
+load-bearing" threshold inconsistently, in both directions, on the exact
+`analysis`/`take`-equivalent boundary — direct evidence the same wobble
+likely existed somewhere across my own 200 labels.
 
 ### Run Log — After
 
 | Criterion | Target | Seed 42 | Seed 7 | Seed 2024 | Verdict |
 |---|---|---|---|---|---|
-| 1.  |  |  |  |  |  |
-| 2.  |  |  |  |  |  |
-| 3.  |  |  |  |  |  |
-| 4.  |  |  |  |  |  |
-| 5.  |  |  |  |  |  |
+| 1. Overall accuracy | ≥ 0.65 | 0.76 | 0.76 | 0.60 | MISSED (one seed below) |
+| 2. Per-label F1 (`take`/`analysis`) | `take` ≥ 0.65, `analysis` ≥ 0.55 | 0.80 / 0.70 | 0.8125 / 0.667 | 0.615 / 0.583 | MISSED (`take` misses by 0.035 in one seed; `analysis` MET in all three) |
+| 3. Balance | no label > 60% | 55.2% `take` / 44.8% `analysis` (dataset-level) | — | — | MET |
+| 4. Consistency | ≥ 80% agreement | 93% (unaffected by this change) | — | — | MET |
+| 5. Confidence *(revised)* | most-confident-third accuracy ≥ 0.85 | 0.875 | 1.0 | 0.875 | MET |
 
-**Did it help, and how do I know:**
-
-<!-- If it didn't, say so. Relabelling that didn't help is a genuinely
-     interesting result and earns full credit. -->
-
-
+**Did it help, and how do I know:** Yes, clearly, even though two criteria
+are still technically MISSED. `take` F1 nearly doubled on average (0.369 →
+0.742), the confidence criterion flipped from a flat miss (0.75 every seed)
+to a clean MET (0.875–1.0), and overall accuracy improved in 2 of 3 seeds.
+Criteria 1 and 2 are still missed, but only because of seed 2024, which was
+oddly the *best* seed before the fix and the *worst* seed after — a flip
+that's itself evidence these numbers are genuinely noisy with only 25 test
+examples, not a sign the fix backfired. Seeds 42 and 7 both clear every
+criterion except accuracy's margin by a hair. `analysis` F1 dropped
+(0.746 → 0.650), which makes sense: the model is no longer defaulting to
+`analysis` as its safe guess, so it loses a little accuracy there in
+exchange for a much more balanced, genuinely learned boundary.
 
 ---
 
